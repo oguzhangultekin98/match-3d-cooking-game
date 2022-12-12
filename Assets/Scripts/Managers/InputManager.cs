@@ -22,10 +22,6 @@ public class InputManager : MonoBehaviour
             m_LastClickTime = Time.time;
 
             if (timeSinceLastClick < m_Double_Click_Acceptable_Gap)
-            {
-                Debug.Log("DoubleClick");
-
-            }
                 m_EventToRaiseOnInputAction_DoubleClickHappend.Raise();
 
         }
