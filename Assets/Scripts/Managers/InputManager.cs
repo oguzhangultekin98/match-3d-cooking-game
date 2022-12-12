@@ -5,23 +5,27 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] Camera m_MainCamera;
-
     [SerializeField] SimpleScriptableEvent m_EventToRaiseOnInputAction_DragObjectStarted;
     [SerializeField] SimpleScriptableEvent m_EventToRaiseOnInputAction_DragObjectCanceled;
     [SerializeField] SimpleScriptableEvent m_EventToRaiseOnInputAction_DoubleClickHappend;
 
-
+    const float m_Double_Click_Acceptable_Gap = 0.2f;
     float m_LastClickTime;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             m_EventToRaiseOnInputAction_DragObjectStarted.Raise();
-            m_LastClickTime = Time.time;
-            float timeSinceLastClick = Time.time - m_LastClickTime;
 
-            if (timeSinceLastClick < 0.2f)
+            float timeSinceLastClick = Time.time - m_LastClickTime;
+            m_LastClickTime = Time.time;
+
+            if (timeSinceLastClick < m_Double_Click_Acceptable_Gap)
+            {
+                Debug.Log("DoubleClick");
+
+            }
                 m_EventToRaiseOnInputAction_DoubleClickHappend.Raise();
 
         }
